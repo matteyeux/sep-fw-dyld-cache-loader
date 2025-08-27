@@ -30,7 +30,7 @@ from collections import namedtuple
 # Library Search Path
 sys.path.append("/usr/local/lib/python3.9/site-packages")
 
-# lief, Version: 0.14.1
+# lief, Version: 0.16.6
 import lief
 from lief import MachO
 ####################################################################################################
@@ -374,7 +374,7 @@ def LoadLiefObjToIDA(li, fileOffset, liefObj, baseAddr, binName, sepFwData, shar
         sectType = section.type
         sectSegName = section.segment_name
         
-        if sectType  == lief.MachO.SECTION_TYPES.ZEROFILL:
+        if sectType  == lief.MachO.Section.TYPE.ZEROFILL:
             segm.type = idaapi.SEG_BSS
 
         # if "__TEXT" in sectSegName:
@@ -507,7 +507,7 @@ def LoadLiefObjToIDA(li, fileOffset, liefObj, baseAddr, binName, sepFwData, shar
                 idc.op_plain_offset(itAddr, 0, 0x0)
         
         # fill zeros
-        if sectType  == lief.MachO.SECTION_TYPES.ZEROFILL:
+        if sectType  == lief.MachO.Section.TYPE.ZEROFILL:
             itAddr = eaBeginAddr
             while itAddr < eaEndAddr:
                 if section.alignment == 3:
